@@ -1,30 +1,30 @@
 # Декомпозиция первого набора требований  
- #### Начальная подготовка проекта к работе
+ #### 1. Начальная подготовка проекта к работе
  
-  1. Прочитать требования
+  1.1 Прочитать требования
  
-  2. Создать репозиторий на gite
+  1.2 Создать репозиторий на gite
  
-  3. Создать “Хелловорлд”
+  1.3 Создать “Хелловорлд”
  
  ### 2. Описываем тестовые данные
  #### 2.1 Описываем пользователей
  
- u1: log: vasya pass:123  
- u2: log:admin pass:admin  
- u3: log: q pass: ?!#  
- u4: log: abcdefghij pass: qwerty  
+   u1: log: vasya pass:123  
+   u2: log:admin pass:admin  
+   u3: log: q pass: ?!#  
+   u4: log: abcdefghij pass: qwerty  
  
  #### 2.2 Описываем ресурсы
  
- R1: re: A role: READ u: vasya  
- R2: re: A.B.C role: WRITE u: vasya  
- R3: re: A role: EXECUTE u: admin  
- R4: re: A role: READ u: admin  
- R5: re: A role: WRITE u: admin  
- R6: re: A role: READ u: admin  
- R7: re: A role: EXECUTE u: q  
- R8: re: A role: EXECUTE u: vasya 
+   R1: re: A role: READ u: vasya  
+   R2: re: A.B.C role: WRITE u: vasya  
+   R3: re: A role: EXECUTE u: admin  
+   R4: re: A role: READ u: admin  
+   R5: re: A role: WRITE u: admin  
+   R6: re: A role: READ u: admin  
+   R7: re: A role: EXECUTE u: q  
+   R8: re: A role: EXECUTE u: vasya 
  
  ### 3. Записываем тесты в bat/sh файл
  #### Вывод справки  
