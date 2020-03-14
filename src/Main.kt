@@ -1,3 +1,8 @@
 fun main(args: Array<String>) {
-    println("sasi")
+    for(arg in args.indices){
+        when(args[arg]){
+            "-login" -> println(args[arg+1])
+            "-pass" -> println(args[arg+1])
+        }
+    }
 }
