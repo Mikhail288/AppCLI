@@ -1,5 +1,6 @@
 import domain.InputArgs
 import enum.ConsoleFlag.*
+import enum.ExitCode
 
 fun main(args: Array<String>) {
     val inputArgs = InputArgs()
@@ -15,5 +16,5 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-
+    System.exit(ExitCode.INVALID_PASSWORD.codeNumber)
 }
