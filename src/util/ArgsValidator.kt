@@ -13,15 +13,8 @@ fun validateLogin(login: String): Int {
 }
 
 fun validateRole(role: String): Int {
-
-/*
-    if(!Role.values().contains(Role.valueOf(role))){
-        exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
-    }
-    exitProcess(ExitCode.SUCCESS.codeNumber)
-*/
     for (r in Role.values())
-        if (!r.roleName.equals(role)) {
+        if (r.roleName != role) {
             exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
         }
     exitProcess(ExitCode.SUCCESS.codeNumber)
