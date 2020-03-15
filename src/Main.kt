@@ -2,6 +2,7 @@ import domain.InputArgs
 import enum.ConsoleFlag.*
 import enum.ExitCode
 import util.validateLogin
+import util.validateRole
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -18,6 +19,7 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-    validateLogin(inputArgs.login!!)
+    //validateLogin(inputArgs.login!!)
+    validateRole(inputArgs.role!!)
     exitProcess(ExitCode.INVALID_PASSWORD.codeNumber)
 }
