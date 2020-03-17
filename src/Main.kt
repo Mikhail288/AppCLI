@@ -1,9 +1,6 @@
 import domain.InputArgs
 import enum.ConsoleFlag.*
-import util.validateDate
-import util.validateLogin
-import util.validateRole
-import util.validateVolume
+import util.*
 
 fun main(args: Array<String>) {
     val inputArgs = InputArgs()
@@ -19,8 +16,9 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-    validateLogin(inputArgs.login!!)
+    /*validateLogin(inputArgs.login!!)
     validateRole(inputArgs.role!!)
     validateDate(inputArgs.dateStart!!, inputArgs.dateEnd!!)
-    validateVolume(inputArgs.volume!!)
+    validateVolume(inputArgs.volume!!)*/
+    validateArgs(inputArgs)
 }
