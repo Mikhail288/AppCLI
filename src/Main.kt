@@ -19,7 +19,10 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-    //validateLogin(inputArgs.login!!)
     validateRole(inputArgs.role!!)
     exitProcess(ExitCode.INVALID_PASSWORD.codeNumber)
+    exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+    //validateLogin(inputArgs.login!!)
+
+
 }

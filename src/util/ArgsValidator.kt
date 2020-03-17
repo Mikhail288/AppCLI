@@ -1,7 +1,9 @@
 package util
 
+import domain.InputArgs
 import enum.ExitCode
 import enum.Role
+import java.lang.IllegalArgumentException
 import kotlin.system.exitProcess
 
 fun validateLogin(login: String): Int {
@@ -12,10 +14,18 @@ fun validateLogin(login: String): Int {
     exitProcess(ExitCode.SUCCESS.codeNumber)
 }
 
-fun validateRole(role: String): Int {
-    for (r in Role.values())
-        if (r.roleName != role) {
-            exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+fun validateRole(role: String) {
+
+    try {
+        if (Role.values().contains(Role.valueOf(role))) {
+            exitProcess(ExitCode.SUCCESS.codeNumber)
         }
-    exitProcess(ExitCode.SUCCESS.codeNumber)
+    } catch (e: IllegalArgumentException) {
+        exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+    }
 }
+
+    /*if (!Role.values().contains(Role.valueOf(role))) {
+        exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+    }
+exitProcess(ExitCode.SUCCESS.codeNumber)*/
