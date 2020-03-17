@@ -12,9 +12,7 @@ fun validateLogin(login: String) {
 
 fun validateRole(role: String) {
     try {
-        if (!Role.values().contains(Role.valueOf(role))){
-            exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
-        }
+        !Role.values().contains(Role.valueOf(role))
     }
     catch (e : IllegalArgumentException){
             exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
