@@ -1,7 +1,9 @@
 package util
+
 import enum.ExitCode
 import enum.Role
-import java.lang.IllegalArgumentException
+import java.time.LocalDate
+import java.time.format.DateTimeParseException
 import kotlin.system.exitProcess
 
 fun validateLogin(login: String) {
@@ -13,19 +15,26 @@ fun validateLogin(login: String) {
 fun validateRole(role: String) {
     try {
         !Role.values().contains(Role.valueOf(role))
-    }
-    catch (e : IllegalArgumentException){
-            exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+    } catch (e: IllegalArgumentException) {
+        exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
     }
 }
 
 fun validateVolume(volume: String) {
-   try {
-       volume.toInt()
-   }
-   catch (e:NumberFormatException){
-       exitProcess(ExitCode.INCORRECT_ACTIVITY.codeNumber)
-   }
+    try {
+        volume.toInt()
+    } catch (e: NumberFormatException) {
+        exitProcess(ExitCode.INCORRECT_ACTIVITY.codeNumber)
+    }
+}
+
+fun validateDate(dateStart: String, dateEnd: String ) {
+    try {
+         LocalDate.parse(dateStart)
+         LocalDate.parse(dateEnd)
+    } catch(e: DateTimeParseException) {
+        exitProcess(ExitCode.INCORRECT_ACTIVITY.codeNumber)
+    }
 }
 
 
