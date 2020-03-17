@@ -1,9 +1,8 @@
 import domain.InputArgs
 import enum.ConsoleFlag.*
-import enum.ExitCode
 import util.validateLogin
 import util.validateRole
-import kotlin.system.exitProcess
+import util.validateVolume
 
 fun main(args: Array<String>) {
     val inputArgs = InputArgs()
@@ -21,5 +20,5 @@ fun main(args: Array<String>) {
     println(inputArgs)
     validateLogin(inputArgs.login!!)
     validateRole(inputArgs.role!!)
-
+    inputArgs.volume?.let { validateVolume(it) }
 }

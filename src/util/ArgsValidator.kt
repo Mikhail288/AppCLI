@@ -19,4 +19,13 @@ fun validateRole(role: String) {
     }
 }
 
+fun validateVolume(volume: String) {
+   try {
+       volume.toInt()
+   }
+   catch (e:NumberFormatException){
+       exitProcess(ExitCode.INCORRECT_ACTIVITY.codeNumber)
+   }
+}
+
 
