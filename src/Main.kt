@@ -16,9 +16,5 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-    /*validateLogin(inputArgs.login!!)
-    validateRole(inputArgs.role!!)
-    validateDate(inputArgs.dateStart!!, inputArgs.dateEnd!!)
-    validateVolume(inputArgs.volume!!)*/
     validateArgs(inputArgs)
 }
