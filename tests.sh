@@ -13,6 +13,21 @@ java -jar AppCli.jar -h
 java -jar AppCli.jar -q
 
 
+# Аутентификация
+
+java -jar AppCli.jar -log: vasya -pass:123
+
+java -jar AppCli.jar -pass:123 -log: vasya
+
+java -jar AppCli.jar -log: VASYA -pass:123
+
+java -jar AppCli.jar -log: asd -pass:123
+
+java -jar AppCli.jar -log: admin -pass:1234
+
+java -jar AppCli.jar -log: admin -pass:admin
+
+
 #Авторизация
 
 java -jar AppCli.jar -log: vasya -pass:123 -role READ -res A
