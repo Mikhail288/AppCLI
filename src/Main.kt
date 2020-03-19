@@ -12,7 +12,6 @@ fun main(args: Array<String>) {
         exitProcess(0)
     }
 
-
 }
 fun outputHelp(){
     println("Это справка!!!")
