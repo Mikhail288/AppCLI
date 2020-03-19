@@ -11,9 +11,13 @@ fun main(args: Array<String>) {
         outputHelp()
         exitProcess(0)
     }
+    val isAutentificationArgs = args[0] =="-log" && args[2] == "-pass"
+
 
 }
 fun outputHelp(){
     println("Это справка!!!")
 }
+
+
 
