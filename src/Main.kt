@@ -1,3 +1,5 @@
+package AppCli
+
 fun main(args: Array<String>) {
-    println("sasi")
+    val isArgs = args.isNullOrEmpty();
 }
