@@ -1,3 +1,4 @@
+import enum.ExitCode
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
@@ -19,5 +20,10 @@ fun outputHelp(){
     println("Это справка!!!")
 }
 
+fun validateLogin(login: String) {
+    val regex = "[a-z]{1,9}".toRegex()
+    if (!regex.matches(login))
+        exitProcess(ExitCode.INVALID_LOGIN.codeNumber)
+}
 
 
