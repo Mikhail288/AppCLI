@@ -12,7 +12,10 @@ fun main(args: Array<String>) {
         outputHelp()
         exitProcess(0)
     }
+
     val isAutentificationArgs = args[0] =="-log" && args[2] == "-pass"
+    val isLogin = args[1].isNotEmpty()
+
 
 
 }
@@ -25,5 +28,3 @@ fun validateLogin(login: String) {
     if (!regex.matches(login))
         exitProcess(ExitCode.INVALID_LOGIN.codeNumber)
 }
-
-
