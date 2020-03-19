@@ -6,5 +6,5 @@ fun main(args: Array<String>) {
     }
 }
 fun outputHelp(){
-    println("Это справка!")
+    println("Это справка!!!")
 }
