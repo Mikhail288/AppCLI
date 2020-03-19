@@ -14,7 +14,7 @@ fun main(args: Array<String>) {
     }
 
     val isAutentificationArgs = args[0] =="-log" && args[2] == "-pass"
-    val isLogin = args[1].isNotEmpty()
+    val isLogin = "vasya"
     val isPassword = args[3].isNotEmpty()
 
 
