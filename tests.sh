@@ -49,3 +49,34 @@ java -jar AppCli.jar -log: admin -pass:admin -role READ -res
 java -jar AppCli.jar -log: admin -pass:admin -role EXECUTE -res A
 
 java -jar AppCli.jar -log: admin -pass:admin -role WRITE -res A.A
+
+
+# Аккаунтинг
+
+java -jar AppCli.jar -log: vasya -pass:123 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: vasya -pass:1234 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: admin -pass:admin -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol qewqeq
+
+java -jar AppCli.jar -log: admin -pass:admin -role EXECUTE -res A -ds 2017.01.07 -de 2017.01.02 -vol 234
+
+java -jar AppCli.jar -log: admin -pass:admin -role READ -res A -ds 432134 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: vasya -pass:123 -role READ -res A
+
+java -jar AppCli.jar -log: q -pass:123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: qwqe -pass:123 -role WRITE -res A -ds 2017.01.07 -de 2017.01.07 -vol 100
+
+java -jar AppCli.jar -log: USER -pass:123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: admin -pass:admin -role DELETE -res A -ds 2017.01.07 -de 2017.02.12 -vol wqeq
+
+java -jar AppCli.jar -log: vasya -pass:123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+
+java -jar AppCli.jar -log: admin -pass:admin -role EXECUTE -res A -ds 2017.01.02 -de 12162 -vol 234
+
+java -jar AppCli.jar -log: admin -pass:admin -role EXECUTE -res A -ds 2017.01.02 -vol 234
+
+java -jar AppCli.jar -log: admin -pass:admin -role EXECUTE -res A -ds 2017.01.02 -vol
