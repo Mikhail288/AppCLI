@@ -2,7 +2,7 @@ package services
 
 import domain.ArgsHandler
 
-class CmdServise(args: Array<String>) {
+class CmdServise {
 
     fun parse(args: Array<String>): ArgsHandler {
         var help: Boolean = false
