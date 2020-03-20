@@ -14,17 +14,10 @@ fun main(args: Array<String>) {
     }
 
     val isAutentificationArgs = args[0] =="-log" && args[2] == "-pass"
-    val isLogin = "vasya"
-    val isPassword = "123"
 
 
-}
-fun outputHelp(){
     println("Это справка!!!")
 }
 
 fun validateLogin(login: String) {
-    val regex = "[a-z]{1,9}".toRegex()
-    if (!regex.matches(login))
-        exitProcess(ExitCode.INVALID_LOGIN.codeNumber)
 }
