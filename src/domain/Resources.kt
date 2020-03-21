@@ -1,3 +1,3 @@
 package domain
 
-data class Resources(var id: Int,  var path: String)
+data class Resources(var resource: String,  var role: String, var user: String)
