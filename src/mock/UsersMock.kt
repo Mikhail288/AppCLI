@@ -1,3 +1,5 @@
+package mock
+
 import domain.User
 
 class UsersMock {
