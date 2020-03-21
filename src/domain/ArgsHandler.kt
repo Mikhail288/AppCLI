@@ -3,5 +3,7 @@ package domain
 data class ArgsHandler(
         var help: Boolean = false,
         var login: String?,
-        var password: String?
+        var password: String?,
+        var resource: String?,
+        var role: String?
 )
