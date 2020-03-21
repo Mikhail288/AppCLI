@@ -19,13 +19,17 @@ class CmdServise {
             login = args[1]
             pass = args[3]
         } else {
-
+            help = true
         }
         if (args[4] == "-res" && args[6] == "-role") {
             res = args[5]
             role = args[7]
         }
         return ArgsHandler(help, login, pass, res, role)
+    }
+
+    fun isAuthenticationNeeded(log: String?, pass: String?): Boolean {
+        return (log != null && pass != null)
     }
 
     fun isAuthorizationNeeded(res: String?, role: String?): Boolean {
