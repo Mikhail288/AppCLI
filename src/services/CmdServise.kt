@@ -28,6 +28,8 @@ class CmdServise {
         return ArgsHandler(help, login, pass, res, role)
     }
 
+    fun isAuthorizationNeeded(res: String?, role: String?): Boolean {
+        return (res != null && role != null)
     }
 
     fun outputHelp() {
