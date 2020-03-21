@@ -44,6 +44,10 @@ class CmdServise {
         return (res != null && role != null)
     }
 
+    fun isAccountingNeeded(ds: String?, de: String?, vol: String?): Boolean {
+        return (ds != null && de != null && vol != null)
+    }
+
     fun outputHelp() {
         println("Это справка!!!")
     }
