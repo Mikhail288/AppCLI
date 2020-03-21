@@ -10,6 +10,9 @@ class CmdServise {
         var pass: String? = null
         var res: String? = null
         var role: String? = null
+        var ds: String? = null
+        var de: String? = null
+        var vol: String? = null
 
         if (args[0] == "-h") {
             help = true
@@ -25,7 +28,12 @@ class CmdServise {
             res = args[5]
             role = args[7]
         }
-        return ArgsHandler(help, login, pass, res, role)
+        if (args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
+            ds = args[9]
+            de = args[11]
+            vol = args[13]
+        }
+        return ArgsHandler(help, login, pass, res, role, ds, de, vol)
     }
 
     fun isAuthenticationNeeded(log: String?, pass: String?): Boolean {
