@@ -30,8 +30,8 @@ class CmdServise {
             role = args[7]
         }
         if (args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
-            ds = DateService().parseDate(args[9])
-            de = DateService().parseDate(args[11])
+            ds = AccountingService().parseDate(args[9])
+            de = AccountingService().parseDate(args[11])
             vol = args[13]
         }
         return ArgsHandler(help, login, pass, res, role, ds, de, vol)

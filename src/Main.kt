@@ -1,7 +1,4 @@
-import mock.UsersMock
-import services.BusinessLogic
-import services.CmdServise
-import services.DateService
+import services.AccountingService
 
 
 fun main(args: Array<String>) {
@@ -12,7 +9,7 @@ fun main(args: Array<String>) {
     } else {
         BusinessLogic().help()
     }*/
-    DateService().validateDate("2014-12-12", "2015-11-11")
+    AccountingService().validateDate("2014-12-12", "2015-11-11")
 
 }
 
