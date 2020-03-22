@@ -1,6 +1,7 @@
 package services
 
 import domain.ArgsHandler
+import java.time.LocalDate
 
 class CmdServise {
 
@@ -10,8 +11,8 @@ class CmdServise {
         var pass: String? = null
         var res: String? = null
         var role: String? = null
-        var ds: String? = null
-        var de: String? = null
+        var ds: LocalDate? = null
+        var de: LocalDate? = null
         var vol: String? = null
 
         if (args[0] == "-h") {
@@ -29,8 +30,8 @@ class CmdServise {
             role = args[7]
         }
         if (args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
-            ds = args[9]
-            de = args[11]
+            ds = DateService().parseDate(args[9])
+            de = DateService().parseDate(args[11])
             vol = args[13]
         }
         return ArgsHandler(help, login, pass, res, role, ds, de, vol)
@@ -51,5 +52,6 @@ class CmdServise {
     fun outputHelp() {
         println("Это справка!!!")
     }
+
 }
 
