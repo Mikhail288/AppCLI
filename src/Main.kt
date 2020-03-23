@@ -16,5 +16,5 @@ fun main(args: Array<String>) {
         }
     }
     println(inputArgs)
-    validateArgs(inputArgs)
+    printHelp(args)
 }
