@@ -8,7 +8,7 @@ data class ArgsHandler(
         var password: String?,
         var resource: String?,
         var role: String?,
-        var dateStart: LocalDate?,
-        var dateEnd: LocalDate?,
+        var dateStart: String?,
+        var dateEnd: String?,
         var volune: String?
         )

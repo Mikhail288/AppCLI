@@ -17,7 +17,7 @@ class AccountingService {
         return date
     }
 
-    fun validateVolume(volume: Int): Boolean {
-      return volume is Int
+    fun validateVolume(volume: String): Boolean {
+      return volume as? Int != null
     }
 }
