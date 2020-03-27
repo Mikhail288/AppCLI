@@ -25,12 +25,9 @@ class BusinessLogic {
         } else {
             exitProcess(ExitCode.UNKNOWN_LOGIN.codeNumber)
         }
-        if(isPasswordVerificated){
-            exitProcess(ExitCode.SUCCESS.codeNumber)
-        } else {
+        if(!isPasswordVerificated){
             exitProcess(ExitCode.INVALID_PASSWORD.codeNumber)
         }
-
         return isPasswordVerificated
     }
     fun authorization(login: String, role: String, resource: String, resources: List<Resources>): Boolean{
@@ -50,5 +47,16 @@ class BusinessLogic {
             exitProcess(ExitCode.FORBIDDEN.codeNumber)
         }
         return isAccessExist
+    }
+
+    fun accounting(ds: String, de: String, vol: String): Boolean{
+        val dateStarted = AccountingService().parseDate(ds)
+        val dateEnd = AccountingService().parseDate(de)
+        val isDateValided = dateStarted != null && dateEnd != null
+        val isVolumeValided = AccountingService().validateVolume(vol)
+        if(!isDateValided && !isVolumeValided){
+            exitProcess(ExitCode.INCORRECT_ACTIVITY.codeNumber)
+        }
+        return isDateValided && isVolumeValided
     }
 }
