@@ -4,79 +4,109 @@ kotlinc ./src -include-runtime -d AppCli.jar
 
 java -jar AppCli.jar
 
+
+quantity
+QUANTITY_RUN=0
+QUANTITY_SUCCESSED=0
+QUANTITY_FAILED=0
+
+run_test () {
+PARAMS=$1
+EXPECTED_CODE=$2
+MESSAGE=$3
+
+java -jar AppCli.jar ${PARAMS}
+
+RESULT=$?
+
+(("QUANTITY_RUN+=1"))
+
+if [[ $RESULT = $EXPECTED_CODE ]]
+then 
+  echo "$MESSAGE OK"
+  (("QUANTITY_SUCCESSED+=1"))
+else 
+  echo "$MESSAGE NOT OK! expected $EXPECTED_CODE, but given $RESULT"
+  (("QUANTITY_FAILED+=1"))
+fi
+
+}
+
 #Справка
 
-java -jar AppCli.jar
+run_test "" 1 "1.1"
 
-java -jar AppCli.jar -h
+run_test "-h" 1 "1.2"
 
-java -jar AppCli.jar -q
-
-
-# Аутентификация
-
-java -jar AppCli.jar -log vasya -pass 123
-
-java -jar AppCli.jar -pass 123 -log vasya
-
-java -jar AppCli.jar -log VASYA -pass 123
-
-java -jar AppCli.jar -log asd -pass 123
-
-java -jar AppCli.jar -log admin -pass 1234
-
-java -jar AppCli.jar -log admin -passadmin
+run_test "-q" 1 "1.3"
 
 
-#Авторизация
+# # Аутентификация
 
-java -jar AppCli.jar -log vasya -pass 123 -role READ -res A
+run_test "-log vasya -pass 123" 0 "2.1"
 
-java -jar AppCli.jar -log vasya -pass 123 -role DELETE -res A
+run_test "-pass 123 -log vasya" 0 "2.2"
 
-java -jar AppCli.jar -log vasya -pass 123 -role WRITE -res A
+run_test "-log VASYA -pass 123" 2 "2.3"
 
-java -jar AppCli.jar -log vasya -pass 123 -role READ -res A.B
+run_test "-log asd -pass 123" 3 "2.4"
 
-java -jar AppCli.jar -log admin -pass admin -role WRITE -res A.B.C
+run_test "-log admin -pass 1234" 4 "2.5"
 
-java -jar AppCli.jar -log vasya -pass 1234 -role DELETE -res A
-
-java -jar AppCli.jar -log vasya -pass 123 -role WRITE -res a.b.c
-
-java -jar AppCli.jar -log admin -pass admin -role READ -res
-
-java -jar AppCli.jar -log admin -pass admin -role EXECUTE -res A
-
-java -jar AppCli.jar -log admin -pass admin -role WRITE -res A.A
+run_test "-log admin -pass admin" 0 "2.6"
 
 
-# Аккаунтинг
+# #Авторизация
 
-java -jar AppCli.jar -log vasya -pass 123 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+run_test "-log vasya -pass 123 -role READ -res A" 0 "3.1"
 
-java -jar AppCli.jar -log vasya -pass 1234 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+run_test "-log vasya -pass 123 -role DELETE -res A" 5 "3.2"
 
-java -jar AppCli.jar -log admin -pass admin -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol qewqeq
+run_test "-log vasya -pass 123 -role WRITE -res A" 6 "3.3"
 
-java -jar AppCli.jar -log admin -pass admin -role EXECUTE -res A -ds 2017.01.07 -de 2017.01.02 -vol 234
+run_test "-log vasya -pass 123 -role READ -res A.B" 0 "3.4"
 
-java -jar AppCli.jar -log admin -pass admin -role READ -res A -ds 432134 -de 2017.02.12 -vol 100
+run_test "-log admin -pass admin -role WRITE -res A.B.C" 0 "3.5"
 
-java -jar AppCli.jar -log vasya -pass 123 -role READ -res A
+run_test "-log vasya -pass 1234 -role DELETE -res A" 4 "3.6"
 
-java -jar AppCli.jar -log q -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+run_test "-log vasya -pass 123 -role WRITE -res a.b.c" 6 "3.7"
 
-java -jar AppCli.jar -log qwqe -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.01.07 -vol 100
+run_test "-log admin -pass admin -role READ -res" 0 "3.8"
 
-java -jar AppCli.jar -log USER -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
+run_test "-log admin -pass admin -role EXECUTE -res A" 6 "3.9"
 
-java -jar AppCli.jar -log admin -pass admin -role DELETE -res A -ds 2017.01.07 -de 2017.02.12 -vol wqeq
+run_test "-log admin -pass admin -role WRITE -res A.A" 6 "3.10"
 
-java -jar AppCli.jar -log vasya -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100
 
-java -jar AppCli.jar -log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -de 12162 -vol 234
+# # Аккаунтинг
 
-java -jar AppCli.jar -log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234
+run_test "-log vasya -pass 123 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 0 "4.1"
 
-java -jar AppCli.jar -log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol
+run_test "-log vasya -pass 1234 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 4 "4.2"
+
+run_test "-log admin -pass admin -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol qewqeq" 7 "4.3"
+
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.07 -de 2017.01.02 -vol 234" 7 "4.4"
+
+run_test "-log admin -pass admin -role READ -res A -ds 432134 -de 2017.02.12 -vol 100" 7 "4.5"
+
+run_test "-log vasya -pass 123 -role READ -res A" 0 "4.6"
+
+run_test "-log q -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 4 "4.7"
+
+run_test "-log qwqe -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.01.07 -vol 100" 3 "4.8"
+
+run_test "-log USER -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 2 "4.9"
+
+run_test "-log admin -pass admin -role DELETE -res A -ds 2017.01.07 -de 2017.02.12 -vol wqeq" 5 "4.10"
+
+run_test "-log vasya -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 6 "4.11"
+
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -de 12162 -vol 234" 7 "4.12"
+
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234" 7 "4.13"
+
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol" 7 "4.14"
+
+echo "Total tests run: $QUANTITY_RUN, Successed: $QUANTITY_SUCCESSED, Failed: $QUANTITY_FAILED"
