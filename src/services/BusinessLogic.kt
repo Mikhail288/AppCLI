@@ -1,5 +1,6 @@
 package services
 
+import domain.Resources
 import domain.User
 import enum.ExitCode
 import kotlin.system.exitProcess
@@ -31,5 +32,23 @@ class BusinessLogic {
         }
 
         return isPasswordVerificated
+    }
+    fun authorization(login: String, role: String, resource: String, resources: List<Resources>): Boolean{
+        val isRoleExist = ResourcesService().findRoles(role)
+        var isChildAccessExist = false
+        var isParentAccessExist = false
+        if(isRoleExist){
+            isChildAccessExist = ResourcesService().checkResourceAccess(login, resource, role)
+        } else {
+            exitProcess(ExitCode.UNKNOWN_ROLE.codeNumber)
+        }
+        if(!isChildAccessExist){
+             isParentAccessExist = ResourcesService().isParentHaveAccess(resource, resources, login, role)
+        }
+        val isAccessExist = isChildAccessExist || isParentAccessExist
+        if(!isAccessExist){
+            exitProcess(ExitCode.FORBIDDEN.codeNumber)
+        }
+        return isAccessExist
     }
 }
