@@ -19,17 +19,17 @@ class CmdServise {
             help = true
         }
 
-        if (args[0] == "-log" && args[2] == "-pass") {
+        if (args.size >= 4 && args[0] == "-log" && args[2] == "-pass") {
             login = args[1]
             pass = args[3]
         } else {
             help = true
         }
-        if (args[4] == "-res" && args[6] == "-role") {
+        if (args.size >= 8 && args[4] == "-res" && args[6] == "-role") {
             res = args[5]
             role = args[7]
         }
-        if (args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
+        if (args.size >= 14 && args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
             ds = AccountingService().parseDate(args[9])
             de = AccountingService().parseDate(args[11])
             vol = args[13]
