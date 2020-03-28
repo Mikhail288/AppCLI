@@ -8,13 +8,13 @@ import kotlinx.cli.ArgType
 class CmdServise(args: Array<String>) {
 
     val parser = ArgParser("AppCli.jar", true)
-    val login by parser.option(ArgType.String, "login", "log", "Справка об доступных аргументах программы")
-    val pass by parser.option(ArgType.String, "password", "pass", "Справка об доступных аргументах программы")
-    val res by parser.option(ArgType.String, "resource", "res", "Справка об доступных аргументах программы")
-    val role by parser.option(ArgType.String, "role", "role", "Справка об доступных аргументах программы")
-    val ds by parser.option(ArgType.String, "dataStart", "ds", "Справка об доступных аргументах программы")
-    val de by parser.option(ArgType.String, "dataEnd", "de", "Справка об доступных аргументах программы")
-    val vol by parser.option(ArgType.String, "valume", "vol", "Справка об доступных аргументах программы")
+    val login by parser.option(ArgType.String, "login", "log", "Логин пользователя, строка, длина не больше 10 символов строчными буквами")
+    val pass by parser.option(ArgType.String, "password", "pass", "Пароль, строка любой длины и любого содержания")
+    val res by parser.option(ArgType.String, "resource", "res", "Путь к запрашиваемому ресурсу, используются заглавные буквы, разделенные точками")
+    val role by parser.option(ArgType.String, "role", "role", "Права доступа к русерсу, возможны - WRITE, READ, EXECUTE")
+    val ds by parser.option(ArgType.String, "dataStart", "ds", "Дата начала сессии работы с ресурсом, формат YYYY-mm-dd")
+    val de by parser.option(ArgType.String, "dataEnd", "de", "Дата окончания сессии работы с ресурсом, формат YYYY-mm-dd")
+    val vol by parser.option(ArgType.String, "valume", "vol", "Потребляемый объем, целочисленное значение")
 
     init {
         try {
