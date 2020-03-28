@@ -6,13 +6,10 @@ import enum.ExitCode
 
 
 class BusinessLogic {
-    fun help(): Int {
-        CmdServise().outputHelp()
-        return ExitCode.HELP.codeNumber
-    }
-
     fun authentication(login: String, pass: String, users: List<User>): Int {
         var isLoginValidated: Boolean = Users().validateLogin(login)
+        var isLoginExist: Boolean
+        var isPasswordVerificated: Boolean
         if (isLoginValidated) {
             isLoginExist = Users().findUserLogin(users, login)
         } else {

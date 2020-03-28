@@ -1,57 +1,44 @@
 package services
 
 import domain.ArgsHandler
-import java.time.LocalDate
+import kotlinx.cli.ArgParser
+import kotlinx.cli.ArgType
 
-class CmdServise {
 
-    fun parse(args: Array<String>): ArgsHandler {
-        var help: Boolean = false
-        var login: String? = null
-        var pass: String? = null
-        var res: String? = null
-        var role: String? = null
-        var ds: String? = null
-        var de: String? = null
-        var vol: String? = null
+class CmdServise(args: Array<String>) {
 
-        if (args[0] == "-h") {
-            help = true
-        }
+    val parser = ArgParser("AppCli.jar", true)
+    val login by parser.option(ArgType.String, "login", "log", "Справка об доступных аргументах программы")
+    val pass by parser.option(ArgType.String, "password", "pass", "Справка об доступных аргументах программы")
+    val res by parser.option(ArgType.String, "resource", "res", "Справка об доступных аргументах программы")
+    val role by parser.option(ArgType.String, "role", "role", "Справка об доступных аргументах программы")
+    val ds by parser.option(ArgType.String, "dataStart", "ds", "Справка об доступных аргументах программы")
+    val de by parser.option(ArgType.String, "dataEnd", "de", "Справка об доступных аргументах программы")
+    val vol by parser.option(ArgType.String, "valume", "vol", "Справка об доступных аргументах программы")
 
-        if (args.size >= 4 && args[0] == "-log" && args[2] == "-pass") {
-            login = args[1]
-            pass = args[3]
-        } else {
-            help = true
+    init {
+        try {
+            parser.parse(args)
+        } catch (e: IllegalStateException) {
+            println(e)
+            println("Parser error :(")
         }
-        if (args.size >= 8 && args[4] == "-res" && args[6] == "-role") {
-            res = args[5]
-            role = args[7]
-        }
-        if (args.size >= 14 && args[8] == "-ds" && args[10] == "-de" && args[12] == "-vol") {
-            ds = args[9]
-            de = args[11]
-            vol = args[13]
-        }
-        return ArgsHandler(help, login, pass, res, role, ds, de, vol)
     }
 
-    fun isAuthenticationNeeded(log: String?, pass: String?): Boolean {
-        return (log != null && pass != null)
+    fun parse(): ArgsHandler {
+        return ArgsHandler(login, pass, res, role, ds, de, vol)
     }
 
-    fun isAuthorizationNeeded(res: String?, role: String?): Boolean {
+    fun isAuthenticationNeeded(): Boolean {
+        return (login != null && pass != null)
+    }
+
+    fun isAuthorizationNeeded(): Boolean {
         return (res != null && role != null)
     }
 
-    fun isAccountingNeeded(ds: String?, de: String?, vol: String?): Boolean {
+    fun isAccountingNeeded(): Boolean {
         return (ds != null && de != null && vol != null)
     }
-
-    fun outputHelp() {
-        println("Это справка!!!")
-    }
-
 }
 
