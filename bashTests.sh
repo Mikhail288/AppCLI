@@ -8,7 +8,7 @@ run_test () {
 PARAMS=$1
 EXPECTED_CODE=$2
 MESSAGE=$3
-java -classpath out\AppCli.jar;lib\kotlinx-cli-0.2.1.jar MainKt ${PARAMS}
+java -classpath out/AppCli.jar:lib/kotlinx-cli-0.2.1.jar MainKt ${PARAMS}
 RESULT=$?
 (("QUANTITY_RUN+=1"))
 if [[ $RESULT = $EXPECTED_CODE ]]
@@ -19,12 +19,13 @@ else
   echo "$MESSAGE NOT OK! expected $EXPECTED_CODE, but given $RESULT"
   (("QUANTITY_FAILED+=1"))
 fi
+}
 
 #Справка
-run_test "" 1 "1.1"
-run_test "-h" 1 "1.2"
+run_test "" 0 "1.1"
+run_test "-h" 0 "1.2"
 
-run_test "-q" 1 "1.3"
+run_test "-q" 0 "1.3"
 
 
 # # Аутентификация
@@ -60,7 +61,7 @@ run_test "-log vasya -pass 123 -role WRITE -res a.b.c" 6 "3.7"
 
 run_test "-log admin -pass admin -role READ -res" 0 "3.8"
 
-run_test "-log admin -pass admin -role EXECUTE -res A" 6 "3.9"
+run_test "-log admin -pass admin -role EXECUTE -res A" 0 "3.9"
 
 run_test "-log admin -pass admin -res A.A -role WRITE " 6 "3.10"
 

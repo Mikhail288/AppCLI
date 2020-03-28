@@ -10,8 +10,6 @@ fun main(args: Array<String>) {
     var status: Int = 0
     if (cmdServise.isAuthenticationNeeded()) {
         status = BusinessLogic().authentication(cmd.login!!, cmd.password!!, UsersMock().users)
-    } else {
-        BusinessLogic().help()
     }
     if (status == 0 && cmdServise.isAuthorizationNeeded()) {
         status = BusinessLogic().authorization(cmd.login!!, cmd.role!!, cmd.resource!!, ResoursesMock().resources)
@@ -19,6 +17,7 @@ fun main(args: Array<String>) {
     if (status == 0 && cmdServise.isAccountingNeeded()) {
         status = BusinessLogic().accounting(cmd.dateStart!!, cmd.dateEnd!!, cmd.volune!!)
     }
+    
     exitProcess(status)
 
 }
