@@ -19,7 +19,7 @@ class ResourcesService {
         var isAccessExist = false
         for (pathArrayIndex in pathArray.indices) {
             for (index in resourcesByUserAndRole.indices){
-                val isResourceEqual = resourcesByUserAndRole[index].split(".") === pathArray.slice(0..pathArrayIndex)
+                val isResourceEqual = resourcesByUserAndRole[index].split(".") == pathArray.slice(0..pathArrayIndex)
                 if (isResourceEqual){
                     isAccessExist = true
                 }
