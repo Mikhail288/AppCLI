@@ -14,14 +14,13 @@ class CmdServise(args: Array<String>) {
     val role by parser.option(ArgType.String, "role", "role", "Права доступа к русерсу, возможны - WRITE, READ, EXECUTE")
     val ds by parser.option(ArgType.String, "dataStart", "ds", "Дата начала сессии работы с ресурсом, формат YYYY-mm-dd")
     val de by parser.option(ArgType.String, "dataEnd", "de", "Дата окончания сессии работы с ресурсом, формат YYYY-mm-dd")
-    val vol by parser.option(ArgType.String, "valume", "vol", "Потребляемый объем, целочисленное значение")
+    val vol by parser.option(ArgType.String, "volume", "vol", "Потребляемый объем, целочисленное значение")
 
     init {
         try {
             parser.parse(args)
         } catch (e: IllegalStateException) {
             println(e)
-            println("Parser error :(")
         }
     }
 
