@@ -10,7 +10,7 @@ PARAMS=$1
 EXPECTED_CODE=$2
 MESSAGE=$3
 
-bash run.sh ${PARAMS}
+bash run.sh "${PARAMS}"
 
 RESULT=$?
 
