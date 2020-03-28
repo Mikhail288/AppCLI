@@ -14,13 +14,13 @@ class ResourcesService {
     }
 
     fun isParentHaveAccess(resource: String, resources: List<Resources>, user: String, role: String): Boolean {
-        val resourcesByUserAndRole = resources.filter{it.user == user && it.role == role}.map{it.resource}
+        val resourcesByUserAndRole = resources.filter { it.user == user && it.role == role }.map { it.resource }
         val pathArray = resource.split(".")
         var isAccessExist = false
         for (pathArrayIndex in pathArray.indices) {
-            for (index in resourcesByUserAndRole.indices){
+            for (index in resourcesByUserAndRole.indices) {
                 val isResourceEqual = resourcesByUserAndRole[index].split(".") == pathArray.slice(0..pathArrayIndex)
-                if (isResourceEqual){
+                if (isResourceEqual) {
                     isAccessExist = true
                 }
             }
