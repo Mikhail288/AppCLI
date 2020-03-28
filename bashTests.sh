@@ -63,34 +63,34 @@ run_test "-log admin -pass admin -role READ -res" 0 "3.8"
 
 run_test "-log admin -pass admin -role EXECUTE -res A" 0 "3.9"
 
-run_test "-log admin -pass admin -res A.A -role WRITE " 6 "3.10"
+run_test "-log admin -pass admin -res A.A -role WRITE " 0 "3.10"
 
 
 # # Аккаунтинг
 
-run_test "-log vasya -pass 123 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 0 "4.1"
+run_test "-log vasya -pass 123 -role READ -res A -ds 2017-01-07 -de 2017-02-12 -vol 100" 0 "4.1"
 
-run_test "-log vasya -pass 1234 -role READ -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 4 "4.2"
+run_test "-log vasya -pass 1234 -role READ -res A -ds 2017-01-07 -de 2017-02-12 -vol 100" 4 "4.2"
 
-run_test "-log admin -pass admin -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol qewqeq" 7 "4.3"
+run_test "-log admin -pass admin -role WRITE -res A -ds 2017-01-07 -de 2017-02-12 -vol qewqeq" 7 "4.3"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.07 -de 2017.01.02 -vol 234" 7 "4.4"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017-01-07 -de 2017-01-02 -vol 234" 7 "4.4"
 
-run_test "-log admin -pass admin -role READ -res A -ds 432134 -de 2017.02.12 -vol 100" 7 "4.5"
+run_test "-log admin -pass admin -role READ -res A -ds 432134 -de 2017-02-12 -vol 100" 7 "4.5"
 
 run_test "-log vasya -pass 123 -role READ -res A" 0 "4.6"
 
-run_test "-log q -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 4 "4.7"
+run_test "-log q -pass 123 -role WRITE -res A -ds 2017-01-07 -de 2017-02-12 -vol 100" 4 "4.7"
 
-run_test "-log qwqe -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.01.07 -vol 100" 3 "4.8"
+run_test "-log qwqe -pass 123 -role WRITE -res A -ds 2017-01-07 -de 2017-01-07 -vol 100" 3 "4.8"
 
-run_test "-log USER -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 2 "4.9"
+run_test "-log USER -pass 123 -role WRITE -res A -ds 2017-01-07 -de 2017-02-12 -vol 100" 2 "4.9"
 
-run_test "-log admin -pass admin -role DELETE -res A -ds 2017.01.07 -de 2017.02.12 -vol wqeq" 5 "4.10"
+run_test "-log admin -pass admin -role DELETE -res A -ds 2017-01-07 -de 2017-02-12 -vol wqeq" 5 "4.10"
 
-run_test "-log vasya -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 -vol 100" 6 "4.11"
+run_test "-log vasya -pass 123 -role WRITE -res A -ds 2017-01-07 -de 2017-02-12 -vol 100" 6 "4.11"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -de 12162 -vol 234" 7 "4.12"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017-01-02 -de 12162 -vol 234" 7 "4.12"
 
 run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234" 0 "4.13"
 
