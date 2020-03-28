@@ -16,7 +16,7 @@ RESULT=$?
 
 (("QUANTITY_RUN+=1"))
 
-if [[ $RESULT = $EXPECTED_CODE ]]
+if [[ $RESULT -eq $EXPECTED_CODE ]]
 then 
   echo "$MESSAGE OK"
   (("QUANTITY_SUCCESSED+=1"))
