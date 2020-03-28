@@ -2,7 +2,7 @@ package services
 
 import domain.Resources
 import domain.User
-import enum.ExitCode
+import enum.ExitCode.*
 
 class BusinessLogic {
     fun authentication(login: String, pass: String, users: List<User>): Int {
@@ -12,17 +12,17 @@ class BusinessLogic {
         if (isLoginValidated) {
             isLoginExist = AuthenticationService().findUserLogin(users, login)
         } else {
-            return ExitCode.INVALID_LOGIN.codeNumber
+            return INVALID_LOGIN.codeNumber
         }
         if (isLoginExist) {
             isPasswordVerificated = AuthenticationService().verificationPassword(users, login, pass)
         } else {
-            return ExitCode.UNKNOWN_LOGIN.codeNumber
+            return UNKNOWN_LOGIN.codeNumber
         }
         return if (isPasswordVerificated) {
-            ExitCode.SUCCESS.codeNumber
+            SUCCESS.codeNumber
         } else {
-            ExitCode.INVALID_PASSWORD.codeNumber
+            INVALID_PASSWORD.codeNumber
         }
     }
 
@@ -33,16 +33,16 @@ class BusinessLogic {
         if (isRoleExist) {
             isChildAccessExist = AuthorizationService().checkResourceAccess(login, resource, role)
         } else {
-            return ExitCode.UNKNOWN_ROLE.codeNumber
+            return UNKNOWN_ROLE.codeNumber
         }
         if (!isChildAccessExist) {
             isParentAccessExist = AuthorizationService().isParentHaveAccess(resource, resources, login, role)
         }
         val isAccessExist = isChildAccessExist || isParentAccessExist
         return if (isAccessExist) {
-            ExitCode.SUCCESS.codeNumber
+            SUCCESS.codeNumber
         } else {
-            ExitCode.FORBIDDEN.codeNumber
+            FORBIDDEN.codeNumber
         }
     }
 
@@ -52,9 +52,9 @@ class BusinessLogic {
         val isDateValided = dateStarted != null && dateEnd != null && dateStarted.compareTo(dateEnd) == -1
         val isVolumeValided = AccountingService().validateVolume(vol)
         return if (isDateValided && isVolumeValided) {
-            ExitCode.SUCCESS.codeNumber
+            SUCCESS.codeNumber
         } else {
-            ExitCode.INCORRECT_ACTIVITY.codeNumber
+            INCORRECT_ACTIVITY.codeNumber
         }
     }
 }
