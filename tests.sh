@@ -1,16 +1,21 @@
 ##!/bin/bash
-kotlinc -d out/AppCli.jar -include-runtime src -cp lib/kotlinx-cli-0.2.1.jar
+
 
 QUANTITY_RUN=0
 QUANTITY_SUCCESSED=0
 QUANTITY_FAILED=0
+
 run_test () {
 PARAMS=$1
 EXPECTED_CODE=$2
 MESSAGE=$3
-java -classpath out/AppCli.jar:lib/kotlinx-cli-0.2.1.jar MainKt ${PARAMS}
+
+bash run.sh ${PARAMS}
+
 RESULT=$?
+
 (("QUANTITY_RUN+=1"))
+
 if [[ $RESULT = $EXPECTED_CODE ]]
 then 
   echo "$MESSAGE OK"
@@ -92,8 +97,8 @@ run_test "-log vasya -pass 123 -role WRITE -res A -ds 2017-01-07 -de 2017-02-12 
 
 run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017-01-02 -de 12162 -vol 234" 7 "4.12"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234" 0 "4.13"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017-01-02 -vol 234" 0 "4.13"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol" 0 "4.14"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017-01-02 -vol" 0 "4.14"
 
 echo "Total tests run: $QUANTITY_RUN, Successed: $QUANTITY_SUCCESSED, Failed: $QUANTITY_FAILED"
