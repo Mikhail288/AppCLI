@@ -13,8 +13,6 @@ class BusinessLogic {
 
     fun authentication(login: String, pass: String, users: List<User>): Int {
         var isLoginValidated: Boolean = Users().validateLogin(login)
-        var isLoginExist: Boolean = false
-        var isPasswordVerificated: Boolean = false
         if (isLoginValidated) {
             isLoginExist = Users().findUserLogin(users, login)
         } else {
@@ -34,7 +32,7 @@ class BusinessLogic {
 
     fun authorization(login: String, role: String, resource: String, resources: List<Resources>): Int {
         val isRoleExist = ResourcesService().findRoles(role)
-        var isChildAccessExist = false
+        var isChildAccessExist: Boolean
         var isParentAccessExist = false
         if (isRoleExist) {
             isChildAccessExist = ResourcesService().checkResourceAccess(login, resource, role)
