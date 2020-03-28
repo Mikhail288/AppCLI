@@ -4,7 +4,7 @@ import domain.User
 import java.security.MessageDigest
 
 
-class Users {
+class AuthenticationService {
     fun validateLogin(log: String): Boolean {
         val regex = "[a-z]{1,9}".toRegex()
         return (regex.matches(log))
