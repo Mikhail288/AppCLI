@@ -51,7 +51,7 @@ class BusinessLogic {
     fun accounting(ds: String, de: String, vol: String): Int {
         val dateStarted = AccountingService().parseDate(ds)
         val dateEnd = AccountingService().parseDate(de)
-        val isDateValided = dateStarted != null && dateEnd != null
+        val isDateValided = dateStarted != null && dateEnd != null && dateStarted.compareTo(dateEnd) == -1
         val isVolumeValided = AccountingService().validateVolume(vol)
         if (isDateValided && isVolumeValided) {
             return ExitCode.SUCCESS.codeNumber
