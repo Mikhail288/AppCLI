@@ -92,8 +92,8 @@ run_test "-log vasya -pass 123 -role WRITE -res A -ds 2017.01.07 -de 2017.02.12 
 
 run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -de 12162 -vol 234" 7 "4.12"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234" 7 "4.13"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol 234" 0 "4.13"
 
-run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol" 7 "4.14"
+run_test "-log admin -pass admin -role EXECUTE -res A -ds 2017.01.02 -vol" 0 "4.14"
 
 echo "Total tests run: $QUANTITY_RUN, Successed: $QUANTITY_SUCCESSED, Failed: $QUANTITY_FAILED"
