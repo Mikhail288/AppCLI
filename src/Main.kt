@@ -4,7 +4,6 @@ import services.BusinessLogic
 import services.CmdServise
 import kotlin.system.exitProcess
 
-
 fun main(args: Array<String>) {
     val cmdServise = CmdServise(args)
     val cmd = cmdServise.parse()

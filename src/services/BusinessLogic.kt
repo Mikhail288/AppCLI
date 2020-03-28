@@ -3,6 +3,7 @@ package services
 import domain.Resources
 import domain.User
 import enum.ExitCode
+import java.security.MessageDigest
 
 
 class BusinessLogic {
@@ -57,5 +58,24 @@ class BusinessLogic {
         } else {
             return ExitCode.INCORRECT_ACTIVITY.codeNumber
         }
+    }
+    fun hash(s: String): String {
+        val bytes = this.toString().toByteArray()
+        val md = MessageDigest.getInstance("SHA-256")
+        val digest = md.digest(bytes)
+        return digest.fold("", { str, it -> str + "%02x".format(it) })
+    }
+
+    fun getSalt(login: String, users: List<User>): String {
+            for (u in users) {
+                if (u.login == login) {
+                   return u.salt
+                }
+            }
+            return " хз чо "
+    }
+
+    fun getHashSalt(pass: String, salt: String){
+        hash(pass + salt)
     }
 }
