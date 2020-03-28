@@ -18,6 +18,6 @@ class AccountingService {
     }
 
     fun validateVolume(volume: String): Boolean {
-      return volume as? Int != null
+        return volume.toIntOrNull() != null
     }
 }
