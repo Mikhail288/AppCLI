@@ -19,18 +19,18 @@ class Users {
         return users.find { it.login == log && it.hash == h } != null
     }
 
-    fun hash(s: String): String {
+    private fun hash(s: String): String {
         val bytes = s.toByteArray()
         val md = MessageDigest.getInstance("SHA-256")
         val digest = md.digest(bytes)
         return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
-    fun getSalt(login: String, users: List<User>): String {
-        return  users.find { it.login == login }!!.salt
+    private fun getSalt(login: String, users: List<User>): String {
+        return users.find { it.login == login }!!.salt
     }
 
-    fun getHash(pass: String, salt: String): String{
-       return  hash(pass + salt)
+    private fun getHash(pass: String, salt: String): String {
+        return hash(pass + salt)
     }
 }

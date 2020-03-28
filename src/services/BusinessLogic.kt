@@ -3,14 +3,12 @@ package services
 import domain.Resources
 import domain.User
 import enum.ExitCode
-import java.security.MessageDigest
-
 
 class BusinessLogic {
     fun authentication(login: String, pass: String, users: List<User>): Int {
-        var isLoginValidated: Boolean = Users().validateLogin(login)
-        var isLoginExist: Boolean
-        var isPasswordVerificated: Boolean
+        val isLoginValidated: Boolean = Users().validateLogin(login)
+        val isLoginExist: Boolean
+        val isPasswordVerificated: Boolean
         if (isLoginValidated) {
             isLoginExist = Users().findUserLogin(users, login)
         } else {
@@ -21,16 +19,16 @@ class BusinessLogic {
         } else {
             return ExitCode.UNKNOWN_LOGIN.codeNumber
         }
-        if (isPasswordVerificated) {
-            return ExitCode.SUCCESS.codeNumber
+        return if (isPasswordVerificated) {
+            ExitCode.SUCCESS.codeNumber
         } else {
-            return ExitCode.INVALID_PASSWORD.codeNumber
+            ExitCode.INVALID_PASSWORD.codeNumber
         }
     }
 
     fun authorization(login: String, role: String, resource: String, resources: List<Resources>): Int {
         val isRoleExist = ResourcesService().findRoles(role)
-        var isChildAccessExist: Boolean
+        val isChildAccessExist: Boolean
         var isParentAccessExist = false
         if (isRoleExist) {
             isChildAccessExist = ResourcesService().checkResourceAccess(login, resource, role)
@@ -41,10 +39,10 @@ class BusinessLogic {
             isParentAccessExist = ResourcesService().isParentHaveAccess(resource, resources, login, role)
         }
         val isAccessExist = isChildAccessExist || isParentAccessExist
-        if (isAccessExist) {
-            return ExitCode.SUCCESS.codeNumber
+        return if (isAccessExist) {
+            ExitCode.SUCCESS.codeNumber
         } else {
-            return ExitCode.FORBIDDEN.codeNumber
+            ExitCode.FORBIDDEN.codeNumber
         }
     }
 
@@ -53,12 +51,10 @@ class BusinessLogic {
         val dateEnd = AccountingService().parseDate(de)
         val isDateValided = dateStarted != null && dateEnd != null && dateStarted.compareTo(dateEnd) == -1
         val isVolumeValided = AccountingService().validateVolume(vol)
-        if (isDateValided && isVolumeValided) {
-            return ExitCode.SUCCESS.codeNumber
+        return if (isDateValided && isVolumeValided) {
+            ExitCode.SUCCESS.codeNumber
         } else {
-            return ExitCode.INCORRECT_ACTIVITY.codeNumber
+            ExitCode.INCORRECT_ACTIVITY.codeNumber
         }
     }
-
-
 }

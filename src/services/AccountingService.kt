@@ -8,11 +8,11 @@ import java.time.format.DateTimeParseException
 class AccountingService {
     fun parseDate(dateString: String): LocalDate? {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        var date: LocalDate?
-        try {
-            date = LocalDate.parse(dateString, formatter)
+        val date: LocalDate?
+        date = try {
+            LocalDate.parse(dateString, formatter)
         } catch (ex: DateTimeParseException) {
-            date = null
+            null
         }
         return date
     }
