@@ -1,26 +1,16 @@
 ##!/bin/bash
+kotlinc -d out/AppCli.jar -include-runtime src -cp lib/kotlinx-cli-0.2.1.jar
 
-kotlinc ./src -include-runtime -d AppCli.jar
-
-java -jar AppCli.jar
-
-
-quantity
 QUANTITY_RUN=0
 QUANTITY_SUCCESSED=0
 QUANTITY_FAILED=0
-
 run_test () {
 PARAMS=$1
 EXPECTED_CODE=$2
 MESSAGE=$3
-
-java -jar AppCli.jar ${PARAMS}
-
+java -classpath out\AppCli.jar;lib\kotlinx-cli-0.2.1.jar MainKt ${PARAMS}
 RESULT=$?
-
 (("QUANTITY_RUN+=1"))
-
 if [[ $RESULT = $EXPECTED_CODE ]]
 then 
   echo "$MESSAGE OK"
@@ -30,12 +20,8 @@ else
   (("QUANTITY_FAILED+=1"))
 fi
 
-}
-
 #Справка
-
 run_test "" 1 "1.1"
-
 run_test "-h" 1 "1.2"
 
 run_test "-q" 1 "1.3"
@@ -76,7 +62,7 @@ run_test "-log admin -pass admin -role READ -res" 0 "3.8"
 
 run_test "-log admin -pass admin -role EXECUTE -res A" 6 "3.9"
 
-run_test "-log admin -pass admin -role WRITE -res A.A" 6 "3.10"
+run_test "-log admin -pass admin -res A.A -role WRITE " 6 "3.10"
 
 
 # # Аккаунтинг
