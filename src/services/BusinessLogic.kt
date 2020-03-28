@@ -1,34 +1,60 @@
 package services
 
-import enum.ExitCode
-import kotlin.system.exitProcess
-
+import domain.Resources
+import domain.User
+import enum.ExitCode.*
 
 class BusinessLogic {
-    fun help(){
-        CmdServise().outputHelp()
-        exitProcess(ExitCode.HELP.codeNumber)
+    fun authentication(login: String, pass: String, users: List<User>): Int {
+        val isLoginValidated: Boolean = AuthenticationService().validateLogin(login)
+        val isLoginExist: Boolean
+        val isPasswordVerificated: Boolean
+        if (isLoginValidated) {
+            isLoginExist = AuthenticationService().findUserLogin(users, login)
+        } else {
+            return INVALID_LOGIN.codeNumber
+        }
+        if (isLoginExist) {
+            isPasswordVerificated = AuthenticationService().verificationPassword(users, login, pass)
+        } else {
+            return UNKNOWN_LOGIN.codeNumber
+        }
+        return if (isPasswordVerificated) {
+            SUCCESS.codeNumber
+        } else {
+            INVALID_PASSWORD.codeNumber
+        }
     }
-    fun authentication(login: String, pass: String): Boolean {
-        var isLoginValidated: Boolean = Users().validateLogin(login)
-        var isLoginExist: Boolean = false
-        var isPasswordVerificated: Boolean = false
-        if(isLoginValidated){
-            isLoginExist = Users().findUserLogin(login)
-        } else {
-           exitProcess(ExitCode.INVALID_LOGIN.codeNumber)
-        }
-        if(isLoginExist){
-            isPasswordVerificated = Users().verificationPassword(login, pass)
-        } else {
-            exitProcess(ExitCode.UNKNOWN_LOGIN.codeNumber)
-        }
-        if(isPasswordVerificated){
-            exitProcess(ExitCode.SUCCESS.codeNumber)
-        } else {
-            exitProcess(ExitCode.INVALID_PASSWORD.codeNumber)
-        }
 
-        return isPasswordVerificated
+    fun authorization(login: String, role: String, resource: String, resources: List<Resources>): Int {
+        val isRoleExist = AuthorizationService().findRoles(role)
+        val isChildAccessExist: Boolean
+        var isParentAccessExist = false
+        if (isRoleExist) {
+            isChildAccessExist = AuthorizationService().checkResourceAccess(login, resource, role)
+        } else {
+            return UNKNOWN_ROLE.codeNumber
+        }
+        if (!isChildAccessExist) {
+            isParentAccessExist = AuthorizationService().isParentHaveAccess(resource, resources, login, role)
+        }
+        val isAccessExist = isChildAccessExist || isParentAccessExist
+        return if (isAccessExist) {
+            SUCCESS.codeNumber
+        } else {
+            FORBIDDEN.codeNumber
+        }
+    }
+
+    fun accounting(ds: String, de: String, vol: String): Int {
+        val dateStarted = AccountingService().parseDate(ds)
+        val dateEnd = AccountingService().parseDate(de)
+        val isDateValided = dateStarted != null && dateEnd != null && dateStarted.compareTo(dateEnd) == -1
+        val isVolumeValided = AccountingService().validateVolume(vol)
+        return if (isDateValided && isVolumeValided) {
+            SUCCESS.codeNumber
+        } else {
+            INCORRECT_ACTIVITY.codeNumber
+        }
     }
 }
