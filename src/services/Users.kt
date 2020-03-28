@@ -31,7 +31,6 @@ class Users {
     }
 
     fun getHash(pass: String, salt: String): String{
-        val a = hash(pass + salt)
-       return  a
+       return  hash(pass + salt)
     }
 }
