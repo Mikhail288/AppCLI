@@ -4,7 +4,7 @@ import domain.Resources
 import enum.Roles
 import mock.ResoursesMock
 
-class ResourcesService {
+class AuthorizationService {
     fun findRoles(role: String): Boolean {
         return Roles.values().find { it.roleName == role } != null
     }
