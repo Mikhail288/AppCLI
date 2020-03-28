@@ -7,9 +7,6 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
 
     val cmd = CmdServise().parse(args)
-    var isAuthenticated = false
-    var isAuthorizated = false
-    var isAccounted = false
     var status: Int = 0
     if (cmd.help) status = BusinessLogic().help()
     if (CmdServise().isAuthenticationNeeded(cmd.login, cmd.password)) {
