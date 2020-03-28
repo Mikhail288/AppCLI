@@ -1,3 +1,3 @@
 package domain
 
-data class User(var login: String? = null, var password: String? = null)
+data class User(val login: String? = null, val hash: String, val salt: String)

@@ -4,8 +4,8 @@ import services.BusinessLogic
 import services.CmdServise
 import kotlin.system.exitProcess
 
-
 fun main(args: Array<String>) {
+
     val cmd = CmdServise().parse(args)
     var isAuthenticated = false
     var isAuthorizated = false
