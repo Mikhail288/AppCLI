@@ -1,23 +1,27 @@
+import enum.ExitCode.*
 import mock.ResoursesMock
 import mock.UsersMock
-import services.BusinessLogic
-import services.CmdServise
+import services.*
 import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
+    val authenticationService = AuthenticationService(UsersMock().users)
+    val authorizationService = AuthorizationService(ResoursesMock().resources)
+    val accountingService = AccountingService()
+    val businessLogic = BusinessLogic(authenticationService, authorizationService, accountingService)
     val cmdServise = CmdServise(args)
     val cmd = cmdServise.parse()
-    var status = 0
+    var status = SUCCESS
     if (cmdServise.isAuthenticationNeeded()) {
-        status = BusinessLogic().authentication(cmd.login!!, cmd.password!!, UsersMock().users)
+        status = businessLogic.authentication(cmd.login!!, cmd.password!!)
     }
-    if (status == 0 && cmdServise.isAuthorizationNeeded()) {
-        status = BusinessLogic().authorization(cmd.login!!, cmd.role!!, cmd.resource!!, ResoursesMock().resources)
+    if (status == SUCCESS && cmdServise.isAuthorizationNeeded()) {
+        status = businessLogic.authorization(cmd.login!!, cmd.role!!, cmd.resource!!)
     }
-    if (status == 0 && cmdServise.isAccountingNeeded()) {
-        status = BusinessLogic().accounting(cmd.dateStart!!, cmd.dateEnd!!, cmd.volume!!)
+    if (status == SUCCESS && cmdServise.isAccountingNeeded()) {
+        status = businessLogic.accounting(cmd.dateStart!!, cmd.dateEnd!!, cmd.volume!!)
     }
 
-    exitProcess(status)
+    exitProcess(status.codeNumber)
 }
 

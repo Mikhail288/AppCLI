@@ -4,18 +4,18 @@ import domain.User
 import java.security.MessageDigest
 
 
-class AuthenticationService {
-    fun validateLogin(log: String): Boolean {
+class AuthenticationService(private val users: List<User>) {
+        fun validateLogin(log: String): Boolean {
         val regex = "[a-z]{1,9}".toRegex()
         return (regex.matches(log))
     }
 
-    fun findUserLogin(users: List<User>, log: String): Boolean {
+    fun findUserLogin(log: String): Boolean {
         return users.find { it.login == log } != null
     }
 
-    fun verificationPassword(users: List<User>, log: String, pass: String): Boolean {
-        val h = (getHash(pass, getSalt(log, users)))
+    fun verificationPassword(log: String, pass: String): Boolean {
+        val h = (getHash(pass, getSalt(log)))
         return users.find { it.login == log && it.hash == h } != null
     }
 
@@ -26,7 +26,7 @@ class AuthenticationService {
         return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
-    private fun getSalt(login: String, users: List<User>): String {
+    private fun getSalt(login: String): String {
         return users.find { it.login == login }!!.salt
     }
 
