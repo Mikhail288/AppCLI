@@ -2,11 +2,13 @@ package services
 
 import enum.ExitCode
 import enum.ExitCode.*
+import enum.Roles
+import enum.findRoles
 
 class BusinessLogic(
-    private val authenticationService: AuthenticationService,
-    private val authorizationService: AuthorizationService,
-    private val accountingService: AccountingService
+        private val authenticationService: AuthenticationService,
+        private val authorizationService: AuthorizationService,
+        private val accountingService: AccountingService
 ) {
     fun authentication(login: String, pass: String): ExitCode {
         val isLoginValidated: Boolean = authenticationService.validateLogin(login)
@@ -30,7 +32,7 @@ class BusinessLogic(
     }
 
     fun authorization(login: String, role: String, resource: String): ExitCode {
-        val isRoleExist = authorizationService.findRoles(role)
+        val isRoleExist = findRoles(role)
         val isChildAccessExist: Boolean
         var isParentAccessExist = false
         if (isRoleExist) {
@@ -39,7 +41,7 @@ class BusinessLogic(
             return UNKNOWN_ROLE
         }
         if (!isChildAccessExist) {
-            isParentAccessExist = authorizationService.isParentHaveAccess(resource,login, role)
+            isParentAccessExist = authorizationService.isParentHaveAccess(resource, login, role)
         }
         val isAccessExist = isChildAccessExist || isParentAccessExist
         return if (isAccessExist) {
@@ -49,12 +51,13 @@ class BusinessLogic(
         }
     }
 
-    fun accounting(ds: String, de: String, vol: String): ExitCode {
+    fun accounting(login: String, resource: String, role: String, ds: String, de: String, vol: String): ExitCode {
         val dateStarted = accountingService.parseDate(ds)
         val dateEnd = accountingService.parseDate(de)
         val isDateValided = dateStarted != null && dateEnd != null && dateStarted.compareTo(dateEnd) == -1
         val isVolumeValided = accountingService.validateVolume(vol)
         return if (isDateValided && isVolumeValided) {
+            accountingService.addNewSession(login, resource, Roles.valueOf(role), ds, de, vol.toInt())
             SUCCESS
         } else {
             INCORRECT_ACTIVITY

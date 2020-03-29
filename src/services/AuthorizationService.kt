@@ -1,17 +1,13 @@
 package services
 
 import domain.Resources
-import enum.Roles
-import mock.ResoursesMock
+
 
 class AuthorizationService(private val resources: List<Resources>) {
-    fun findRoles(role: String): Boolean {
-        return Roles.values().find { it.roleName == role } != null
-    }
 
-    fun checkResourceAccess(login: String, res: String, role: String): Boolean {
-        return resources.find { it.user == login && it.resource == res && it.role == role } != null
-    }
+    fun checkResourceAccess(login: String, res: String, role: String) =
+        resources.find { it.user == login && it.resource == res && it.role == role } != null
+
 
     fun isParentHaveAccess(resource: String, user: String, role: String): Boolean {
         val resourcesByUserAndRole = resources.filter { it.user == user && it.role == role }.map { it.resource }

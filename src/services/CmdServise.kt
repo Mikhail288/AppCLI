@@ -54,21 +54,12 @@ class CmdServise(args: Array<String>) {
         }
     }
 
-    fun parse(): ArgsHandler {
-        return ArgsHandler(login, pass, res, role, ds, de, vol)
-    }
+    fun parse() = ArgsHandler(login, pass, res, role, ds, de, vol)
 
-    fun isAuthenticationNeeded(): Boolean {
-        return (login != null && pass != null)
-    }
+    fun isAuthenticationNeeded() = (login != null && pass != null)
 
-    fun isAuthorizationNeeded(): Boolean {
-        return (res != null && role != null)
-    }
+    fun isAuthorizationNeeded() = (res != null && role != null)
 
-    fun isAccountingNeeded(): Boolean {
-        return (ds != null && de != null && vol != null)
-    }
-
+    fun isAccountingNeeded() = (ds != null && de != null && vol != null)
 }
 
