@@ -1,7 +1,6 @@
 import enum.ExitCode.SUCCESS
-import enum.Roles
 import mock.ResoursesMock
-import mock.SessionMock.Companion.session
+import mock.SessionMock
 import mock.UsersMock
 import services.*
 import kotlin.system.exitProcess
@@ -9,7 +8,7 @@ import kotlin.system.exitProcess
 fun main(args: Array<String>) {
     val authenticationService = AuthenticationService(UsersMock().users)
     val authorizationService = AuthorizationService(ResoursesMock().resources)
-    val accountingService = AccountingService()
+    val accountingService = AccountingService(SessionMock.session)
     val businessLogic = BusinessLogic(authenticationService, authorizationService, accountingService)
     val cmdServise = CmdServise(args)
     val cmd = cmdServise.parse()
@@ -21,18 +20,8 @@ fun main(args: Array<String>) {
         status = businessLogic.authorization(cmd.login!!, cmd.role!!, cmd.resource!!)
     }
     if (status == SUCCESS && cmdServise.isAccountingNeeded()) {
-        status = businessLogic.accounting(cmd.dateStart!!, cmd.dateEnd!!, cmd.volume!!)
+        status = businessLogic.accounting(cmd.login!!, cmd.resource!!, cmd.role!!, cmd.dateStart!!, cmd.dateEnd!!, cmd.volume!!)
     }
-    accountingService.successSession(
-        session,
-        UsersMock().users.first { it.login == cmd.login },
-        cmd.resource!!,
-        Roles.valueOf(cmd.role!!),
-        cmd.dateStart!!,
-        cmd.dateEnd!!,
-        cmd.volume!!.toInt()
-    )
-
     exitProcess(status.codeNumber)
 }
 
