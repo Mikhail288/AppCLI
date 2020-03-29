@@ -1,7 +1,5 @@
 package services
 
-import domain.Resources
-import domain.User
 import enum.ExitCode
 import enum.ExitCode.*
 
@@ -10,17 +8,17 @@ class BusinessLogic(
     private val authorizationService: AuthorizationService,
     private val accountingService: AccountingService
 ) {
-    fun authentication(login: String, pass: String, users: List<User>): ExitCode {
+    fun authentication(login: String, pass: String): ExitCode {
         val isLoginValidated: Boolean = authenticationService.validateLogin(login)
         val isLoginExist: Boolean
         val isPasswordVerificated: Boolean
         if (isLoginValidated) {
-            isLoginExist = authenticationService.findUserLogin(users, login)
+            isLoginExist = authenticationService.findUserLogin(login)
         } else {
             return INVALID_LOGIN
         }
         if (isLoginExist) {
-            isPasswordVerificated = authenticationService.verificationPassword(users, login, pass)
+            isPasswordVerificated = authenticationService.verificationPassword(login, pass)
         } else {
             return UNKNOWN_LOGIN
         }
@@ -31,7 +29,7 @@ class BusinessLogic(
         }
     }
 
-    fun authorization(login: String, role: String, resource: String, resources: List<Resources>): ExitCode {
+    fun authorization(login: String, role: String, resource: String): ExitCode {
         val isRoleExist = authorizationService.findRoles(role)
         val isChildAccessExist: Boolean
         var isParentAccessExist = false
@@ -41,7 +39,7 @@ class BusinessLogic(
             return UNKNOWN_ROLE
         }
         if (!isChildAccessExist) {
-            isParentAccessExist = authorizationService.isParentHaveAccess(resource, resources, login, role)
+            isParentAccessExist = authorizationService.isParentHaveAccess(resource,login, role)
         }
         val isAccessExist = isChildAccessExist || isParentAccessExist
         return if (isAccessExist) {

@@ -4,7 +4,7 @@ import domain.Resources
 import enum.Roles
 import mock.ResoursesMock
 
-class AuthorizationService {
+class AuthorizationService(private val resources: List<Resources>) {
     fun findRoles(role: String): Boolean {
         return Roles.values().find { it.roleName == role } != null
     }
@@ -13,7 +13,7 @@ class AuthorizationService {
         return ResoursesMock().resources.find { it.user == login && it.resource == res && it.role == role } != null
     }
 
-    fun isParentHaveAccess(resource: String, resources: List<Resources>, user: String, role: String): Boolean {
+    fun isParentHaveAccess(resource: String, user: String, role: String): Boolean {
         val resourcesByUserAndRole = resources.filter { it.user == user && it.role == role }.map { it.resource }
         val pathArray = resource.split(".")
         var isAccessExist = false
