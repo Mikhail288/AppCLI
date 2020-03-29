@@ -5,19 +5,17 @@ import java.security.MessageDigest
 
 
 class AuthenticationService(private val users: List<User>) {
-        fun validateLogin(log: String): Boolean {
+    fun validateLogin(log: String): Boolean {
         val regex = "[a-z]{1,9}".toRegex()
         return (regex.matches(log))
     }
 
-    fun findUserLogin(log: String): Boolean {
-        return users.find { it.login == log } != null
-    }
+    fun findUserLogin(log: String) = users.find { it.login == log } != null
 
-    fun verificationPassword(log: String, pass: String): Boolean {
-        val h = (getHash(pass, getSalt(log)))
-        return users.find { it.login == log && it.hash == h } != null
-    }
+
+    fun verificationPassword(log: String, pass: String) =
+        users.find { it.login == log && it.hash == getHash(pass, getSalt(log)) } != null
+
 
     private fun hash(s: String): String {
         val bytes = s.toByteArray()
@@ -26,11 +24,8 @@ class AuthenticationService(private val users: List<User>) {
         return digest.fold("", { str, it -> str + "%02x".format(it) })
     }
 
-    private fun getSalt(login: String): String {
-        return users.find { it.login == login }!!.salt
-    }
+    private fun getSalt(login: String) = users.find { it.login == login }!!.salt
 
-    private fun getHash(pass: String, salt: String): String {
-        return hash(pass + salt)
-    }
+    private fun getHash(pass: String, salt: String) = hash(pass + salt)
+
 }

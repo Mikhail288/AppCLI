@@ -39,7 +39,7 @@ class BusinessLogic(
             return UNKNOWN_ROLE
         }
         if (!isChildAccessExist) {
-            isParentAccessExist = authorizationService.isParentHaveAccess(resource,login, role)
+            isParentAccessExist = authorizationService.isParentHaveAccess(resource, login, role)
         }
         val isAccessExist = isChildAccessExist || isParentAccessExist
         return if (isAccessExist) {
