@@ -10,7 +10,7 @@ class AuthorizationService(private val resources: List<Resources>) {
     }
 
     fun checkResourceAccess(login: String, res: String, role: String): Boolean {
-        return ResoursesMock().resources.find { it.user == login && it.resource == res && it.role == role } != null
+        return resources.find { it.user == login && it.resource == res && it.role == role } != null
     }
 
     fun isParentHaveAccess(resource: String, user: String, role: String): Boolean {
