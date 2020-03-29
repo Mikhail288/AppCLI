@@ -1,5 +1,7 @@
-import enum.ExitCode.*
+import enum.ExitCode.SUCCESS
+import enum.Roles
 import mock.ResoursesMock
+import mock.SessionMock.Companion.session
 import mock.UsersMock
 import services.*
 import kotlin.system.exitProcess
@@ -21,6 +23,15 @@ fun main(args: Array<String>) {
     if (status == SUCCESS && cmdServise.isAccountingNeeded()) {
         status = businessLogic.accounting(cmd.dateStart!!, cmd.dateEnd!!, cmd.volume!!)
     }
+    accountingService.successSession(
+        session,
+        UsersMock().users.first { it.login == cmd.login },
+        cmd.resource!!,
+        Roles.valueOf(cmd.role!!),
+        cmd.dateStart!!,
+        cmd.dateEnd!!,
+        cmd.volume!!.toInt()
+    )
 
     exitProcess(status.codeNumber)
 }
