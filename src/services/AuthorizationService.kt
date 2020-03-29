@@ -5,9 +5,6 @@ import enum.Roles
 
 class AuthorizationService(private val resources: List<Resources>) {
 
-    fun findRoles(role: String) = Roles.values().find { it.roleName == role } != null
-
-
     fun checkResourceAccess(login: String, res: String, role: String) =
         resources.find { it.user == login && it.resource == res && it.role == role } != null
 

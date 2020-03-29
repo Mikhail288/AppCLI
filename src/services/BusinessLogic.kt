@@ -2,6 +2,7 @@ package services
 
 import enum.ExitCode
 import enum.ExitCode.*
+import enum.findRoles
 
 class BusinessLogic(
     private val authenticationService: AuthenticationService,
@@ -30,7 +31,7 @@ class BusinessLogic(
     }
 
     fun authorization(login: String, role: String, resource: String): ExitCode {
-        val isRoleExist = authorizationService.findRoles(role)
+        val isRoleExist = findRoles(role)
         val isChildAccessExist: Boolean
         var isParentAccessExist = false
         if (isRoleExist) {
