@@ -1,4 +1,4 @@
-https://travis-ci.org/Mikhail1488/AppCLI.svg?branch=master
+[![Build Status](https://travis-ci.org/Mikhail1488/AppCLI.svg?branch=master)](https://travis-ci.org/Mikhail1488/AppCLI)
 ## [AppCli](https://mikhail1488.github.io/AppCLI/)
 Учебный проект, созданный с целью изучения backend-разработки в рамках курса "Программная инженерия".
 Приложение представляет собой консольную утилиту, выполняющую аутентификацию, авторизацию и аккаунтинг.
