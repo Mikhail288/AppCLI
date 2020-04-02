@@ -18,8 +18,8 @@
 
 К проекту предъявляются следующие [требования](https://github.com/Mikhail1488/AppCLI/blob/master/Requirements.md).    
 Для реализации которых  разработаный планы:  
-1) [Roadmap-1](Mikhail1488/AppCLI/blob/master/Roadmap-1.md)    
-2) [Roadmap-2](Mikhail1488/AppCLI/blob/master/Roadmap-2.md)  
+1) [Roadmap-1](./Roadmap-1.md)    
+2) [Roadmap-2](./Roadmap-2.md)  
 
 ## Сборка и запуск приложения
 Для сборки приложения нужно:  
