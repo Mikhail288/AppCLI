@@ -16,7 +16,7 @@
 
 ## Требования
 
-К проекту предъявляются следующие [требования](https://github.com/Mikhail1488/AppCLI/blob/master/Requirements.md).    
+К проекту предъявляются следующие [требования](./Requirements.md).    
 Для реализации которых  разработаный планы:  
 1) [Roadmap-1](./Roadmap-1.md)    
 2) [Roadmap-2](./Roadmap-2.md)  
